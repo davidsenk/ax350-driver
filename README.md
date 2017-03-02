@@ -1,9 +1,9 @@
 # Arduino Driver for Brother AX350 Typewriter
 
 I've decided to create this because:
- 1: I happen to have a Brother AX350 typewriter from 1991
- 2: The keyboard is NFG
- 3: I wanted something simplish that I've already "*solved*" in my head.
+ 1. I happen to have a Brother AX350 typewriter from 1991
+ 2. The keyboard is NFG
+ 3. I wanted something simplish that I've already "*solved*" in my head.
 
 
 What I decided to go with to create all of this is a [ProMicro 5V from Sparkfun](https://www.sparkfun.com/products/12640), two [8 channel multiplexers (also Sparkfun)](https://www.sparkfun.com/products/13906), [female headers](https://www.sparkfun.com/products/115), and [a lot of](https://www.sparkfun.com/products/13870) [m/m jumper wires](https://www.sparkfun.com/products/12795).
