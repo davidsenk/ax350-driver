@@ -3,6 +3,9 @@ const int enablerPins[2] = {5,9};
 const int mux1[3] = {2,3,4};
 const int mux2[3] = {6,7,8};
 
+//ProMicro only has 2.5KB of RAM. So using 3/4 of a KB as input buffer is fairly signifigant.
+char inputBuffer[768];
+
 
 void disableMux(){
   digitalWrite(enablerPins[0], HIGH);
@@ -34,8 +37,7 @@ void resetMuxes(){
 
 //connects pins via the muxes
 void connectPins(int pin1, int pin2, bool leaveDisabled = false){
-  //disable muxes as connections are being changed
-  disableMux();
+  //disable muxes and set to known state as connections are being changed
   resetMuxes();
 
   //if pin connections dont make sense, dont try and connect them
@@ -115,8 +117,9 @@ void blinkenlights(){
   delay(5000);
 }
 
-
+void 
 
 void loop() {
-  testConnect();
+  connectPins(5, 7);
+  delay(100000);
 }
