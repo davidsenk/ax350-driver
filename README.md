@@ -23,3 +23,6 @@ I went with the female over the male headers as I did not want to use a breadboa
  * Actually finish this project, it's not that hard, come on *rolls eyes*
  * Write a PC/Raspberry PI client that handles buffering, 2.5KB of RAM on ProMicro is *not* a whole lot for buffering text. This file right at this point is already more than 2.5KB!
  * Tweak the crap out of the timing to find out just how fast I can get the AX350 to "print"
+ 
+# PCB
+ Yes, I was a bit stupid and designed a PCB before I had everything done, but hey, why not! First one I made was from SEEED Studio, and before it even arrived I changed my mind on where some things should be (and well, I forgot to add additional headers to the board so it would end up being a bit wonky, should have caught that). So I changed design a bit and sent off revision to [OSH Park](https://oshpark.com/shared_projects/Lo3atBIq) partly because Purple seems more awesomer, and OSH Park manufactures in the US. I don't really have anything against quality Chinese manufacturing, I'd just prefer to support companies that still operate out of the US. I've also added the Fritzing project I used to design PCB and the Gerber files to this project, and I should hopefully not have to edit them again.
