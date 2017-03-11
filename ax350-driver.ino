@@ -3,9 +3,15 @@ const int enablerPins[2] = {5,9};
 const int mux1[3] = {2,3,4};
 const int mux2[3] = {6,7,8};
 
-//ProMicro only has 2.5KB of RAM. So using 3/4 of a KB as input buffer is fairly signifigant.
-char inputBuffer[768];
+//ProMicro only has 2.5KB of RAM. So using 1 KB as input buffer is fairly signifigant.
+#define BUFFERSIZE 1024
+char inputBuffer[BUFFERSIZE];
 
+void setupBuffer(){
+  for(int i = 0; i < BUFFERSIZE; i++){
+    inputBuffer[i] = 0;
+  }
+}
 
 void disableMux(){
   digitalWrite(enablerPins[0], HIGH);
@@ -23,7 +29,7 @@ void flashMux(){
 
   //connect ends together for 125ms, simulating a keypress.
   enableMux();
-  delay(125);
+  delay(75);
   disableMux();
 }
 
@@ -54,23 +60,23 @@ void connectPins(int pin1, int pin2, bool leaveDisabled = false){
     //Serial.print(i);
     //Serial.print("-");
     //Serial.println(lpin1);
-    Serial.print("MUX1 # ");
+    Serial.print(F("MUX1 # "));
     Serial.print(i);
     if(lpin1){
-      Serial.print(" HIGH ");
+      Serial.print(F(" HIGH "));
       digitalWrite(mux1[i], HIGH);
     } else {
-      Serial.print(" LOW  ");
+      Serial.print(F(" LOW  "));
       digitalWrite(mux1[i], LOW);
     }
     Serial.print(mux1[i]);
-    Serial.print(" MUX2 # ");
+    Serial.print(F(" MUX2 # "));
     Serial.print(i);
     if(lpin2){
-      Serial.print(" HIGH ");
+      Serial.print(F(" HIGH "));
       digitalWrite(mux2[i], HIGH);
     } else {
-      Serial.print(" LOW  ");
+      Serial.print(F(" LOW  "));
       digitalWrite(mux2[i], LOW);
     }
     Serial.println(mux2[i]);
@@ -84,22 +90,12 @@ void connectPins(int pin1, int pin2, bool leaveDisabled = false){
   enableMux();
 }
 
-void setup() {
-  //sets up pins 2-9 for output to control muxes
-  for(int i = 2; i < 9; i++){
-      pinMode(i, OUTPUT);
-  }
-  //and disable mux as we aren't ready yet
-  disableMux();
-}
-
-
 void testConnect(){
     for(int i = 0; i < 8; i++){
     for(int i2 = 0; i2 < 8; i2++){
-      Serial.print("Attempting to connect ");
+      Serial.print(F("Attempting to connect "));
       Serial.print(i);
-      Serial.print(" - ");
+      Serial.print(F(" - "));
       Serial.println(i2);
       connectPins(i, i2, true);
       delay(500);
@@ -117,9 +113,24 @@ void blinkenlights(){
   delay(5000);
 }
 
-void 
+void setup() {
+  //setup enablerpins first so that the muxes can be turned off
+  for(int i = 0; i < 2; i++){
+    pinMode(enablerPins[i], OUTPUT);
+  }
+  //and disable mux as we aren't ready yet
+  disableMux();
+  //sets up pins for control
+  for(int i = 0; i < 3; i++){
+      pinMode(mux1[i], OUTPUT);
+      pinMode(mux2[i], OUTPUT);
+  }
+  //initialize the inputBuffer
+  setupBuffer();
+}
 
 void loop() {
-  connectPins(5, 7);
-  delay(100000);
+  connectPins(1, 6, true);
+  flashMux();
+  delay(100);
 }
